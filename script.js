@@ -46,7 +46,7 @@ function createTabTicket(){
 }
 
 function findUser(id){
-    for(let i=0; i<tabUser.length; i++){
+    for(i=0; i<tabUser.length; i++){
         if(tabUser[i].key == id){
             return tabUser[i].username;
         }
