@@ -1,4 +1,5 @@
 const selectUser = document.getElementById('selectUser');
+const tickets = document.getElementById('tickets');
 
 // Definition des classes d'objets
 class Ticket {
@@ -20,13 +21,37 @@ let tabUser = [];
 let tabTicket = [];
 
 function createSelectValue(){
-    console.log("tab",tabUser);
-    for(i=0; i<tabUser.length; i++){
+    for(let i=0; i<tabUser.length; i++){
         const option = document.createElement("option");
         option.value = i+1
         option.innerHTML = tabUser[i].username;
         selectUser.appendChild(option);
     }
+}
+
+function createTabTicket(){
+    for(let i=0; i<tabTicket.length; i++){
+        const tr = document.createElement("tr");
+        const th = document.createElement("th");
+        th.innerHTML = i+1;
+        const td1 = document.createElement("td");
+        td1.innerHTML = findUser(tabTicket[i].users_id);
+        const td2 = document.createElement("td");
+        td2.innerHTML = tabTicket[i].subject;
+        tr.appendChild(th);
+        tr.appendChild(td1);
+        tr.appendChild(td2);
+        tickets.appendChild(tr);
+    }
+}
+
+function findUser(id){
+    for(let i=0; i<tabUser.length; i++){
+        if(tabUser[i].key == id){
+            return tabUser[i].username;
+        }
+    }
+    return "anonymious";
 }
 
 // get users
@@ -52,6 +77,7 @@ fetch('https://webhelprequest.deta.dev/tickets',)
         for(i=0;i<response.data.length;i++){
             tabTicket.push(new Ticket(response.data[i].key,response.data[i].done,response.data[i].users_id,response.data[i].subject));
         }
+        createTabTicket();
         console.log(tabTicket);
     })
     .catch(err => console.error(err));
