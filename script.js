@@ -23,8 +23,8 @@ function createSelectValue(){
     console.log("tab",tabUser);
     for(i=0; i<tabUser.length; i++){
         const option = document.createElement("option");
-        option.value = i
-        option.innerHTML = `${tabUser[i].username}`;
+        option.value = i+1
+        option.innerHTML = tabUser[i].username;
         selectUser.appendChild(option);
     }
 }
