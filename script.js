@@ -1,9 +1,11 @@
+const selectUser = document.getElementById('selectUser');
+
 // Definition des classes d'objets
 class Ticket {
-    constructor(key= 0, done = 0, user_id = 0, subject = ""){
+    constructor(key= 0, done = 0, users_id = 0, subject = ""){
         this.key = key; 
         this.done = done;
-        this.user_id = user_id;
+        this.users_id = users_id;
         this.subject = subject;
     }
 }
@@ -17,6 +19,16 @@ class User {
 let tabUser = [];
 let tabTicket = [];
 
+function createSelectValue(){
+    console.log("tab",tabUser);
+    for(i=0; i<tabUser.length; i++){
+        const option = document.createElement("option");
+        option.value = i
+        option.innerHTML = `${tabUser[i].username}`;
+        selectUser.appendChild(option);
+    }
+}
+
 // get users
 fetch('https://webhelprequest.deta.dev/users',)
     .then(response => response.json())
@@ -26,11 +38,24 @@ fetch('https://webhelprequest.deta.dev/users',)
         for(i=0;i<response.data.length;i++){
             tabUser.push(new User(response.data[i].key,response.data[i].username));
         }
+        createSelectValue();
         console.log(tabUser)
     })
     .catch(err => console.error(err));
 
 // get tickets
+fetch('https://webhelprequest.deta.dev/tickets',)
+    .then(response => response.json())
+    .then(response => {
+        console.log("length", response.data.length);
+        console.log(response.data);
+        for(i=0;i<response.data.length;i++){
+            tabTicket.push(new Ticket(response.data[i].key,response.data[i].done,response.data[i].users_id,response.data[i].subject));
+        }
+        console.log(tabTicket);
+    })
+    .catch(err => console.error(err));
+
 
 
 
