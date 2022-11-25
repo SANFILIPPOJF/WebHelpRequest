@@ -24,7 +24,7 @@ function createSelectValue(){
     for(let i=0; i<tabUser.length; i++){
         const option = document.createElement("option");
         option.value = i+1
-        option.innerHTML = tabUser[i].username;
+        option.textContent = tabUser[i].username;
         selectUser.appendChild(option);
     }
 }
@@ -33,11 +33,11 @@ function createTabTicket(){
     for(let i=0; i<tabTicket.length; i++){
         const tr = document.createElement("tr");
         const th = document.createElement("th");
-        th.innerHTML = i+1;
+        th.textContent = i+1;
         const td1 = document.createElement("td");
-        td1.innerHTML = findUser(tabTicket[i].users_id);
+        td1.textContent = findUser(tabTicket[i].users_id);
         const td2 = document.createElement("td");
-        td2.innerHTML = tabTicket[i].subject;
+        td2.textContent= tabTicket[i].subject;
         tr.appendChild(th);
         tr.appendChild(td1);
         tr.appendChild(td2);
