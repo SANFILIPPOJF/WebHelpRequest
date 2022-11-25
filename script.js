@@ -23,6 +23,7 @@ class User {
 // definitions des tableaux 
 let tabUser = [];
 let tabTicket = [];
+let tabTicketUndone = [];
 
 function createSelectValue() {
     for (let i = 0; i < tabUser.length; i++) {
@@ -34,30 +35,26 @@ function createSelectValue() {
 }
 
 function createTabTicket() {
-    for (let i = 0; i < tabTicket.length; i++) {
-        if (tabTicket[i].done == 0) {
-            const tr = document.createElement("tr");
-            const th = document.createElement("th");
-            th.textContent = i + 1;
-            const td1 = document.createElement("td");
-            td1.textContent = findUser(tabTicket[i].users_id);
-            const td2 = document.createElement("td");
-            td2.textContent = tabTicket[i].subject;
-            const btnPass = document.createElement("button");
-            btnPass.type = "button";
-            btnPass.className = "btn btn-light container-sm fs-6 p-2 w25 mt-5"
-            btnPass.id = `btnPass${i}`
-            const iArrow = document.createElement("i");
-            iArrow.className = "bi bi-trash fs-3"
-            btnPass.appendChild(iArrow);
-            tr.appendChild(th);
-            tr.appendChild(td1);
-            tr.appendChild(td2);
-            tr.appendChild(btnPass);
-            tickets.appendChild(tr);
-            if (i == tabTicket.length - 1) {
-                btnPass.className = "invisible bi bi-trash container-sm fs-6 p-2 w25 mt-5"
-            }
+    for (let i = 0; i < tabTicketUndone.length; i++) {
+        const tr = document.createElement("tr");
+        const th = document.createElement("th");
+        th.textContent = i + 1;
+        const td1 = document.createElement("td");
+        td1.textContent = findUser(tabTicket[i].users_id);
+        const td2 = document.createElement("td");
+        td2.textContent = tabTicket[i].subject;
+        const btnPass = document.createElement("button");
+        btnPass.type = "button";
+        btnPass.className = "btn btn-light container-sm fs-6 p-2 w25 mt-5"
+        btnPass.id = `btnPass${i}`
+        btnPass.textContent = "Passer son tour";
+        tr.appendChild(th);
+        tr.appendChild(td1);
+        tr.appendChild(td2);
+        tr.appendChild(btnPass);
+        tickets.appendChild(tr);
+        if (i == tabTicketUndone.length - 1) {
+            btnPass.className = "invisible btn btn-light container-sm fs-6 p-2 w25 mt-5"
         }
     }
 }
@@ -94,6 +91,8 @@ fetch('https://webhelprequest.deta.dev/tickets',)
         for (i = 0; i < response.data.length; i++) {
             tabTicket.push(new Ticket(response.data[i].key, response.data[i].done, response.data[i].users_id, response.data[i].subject));
         }
+        tabTicketUndone = tabTicket.filter(ticket => ticket.done == 0);
+        console.log(tabTicketUndone);
         createTabTicket();
         console.log(tabTicket);
     })
