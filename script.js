@@ -2,9 +2,7 @@ const selectUser = document.getElementById('selectUser');
 const tickets = document.getElementById('tickets');
 const buttonNext = document.getElementById('next');
 const buttonHelp = document.getElementById('help');
-const buttonPass = document.getElementById('pass');
 
-buttonPass.addEventListener('click', pass);
 buttonNext.addEventListener('click', next);
 buttonHelp.addEventListener('click', help);
 // Definition des classes d'objets
