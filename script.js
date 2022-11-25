@@ -2,7 +2,9 @@ const selectUser = document.getElementById('selectUser');
 const tickets = document.getElementById('tickets');
 const buttonNext = document.getElementById('next');
 const buttonHelp = document.getElementById('help');
+const buttonPass = document.getElementById('pass');
 
+buttonPass.addEventListener('click', pass);
 buttonNext.addEventListener('click', next);
 buttonHelp.addEventListener('click', help);
 // Definition des classes d'objets
@@ -28,7 +30,7 @@ function createSelectValue(){
     for(let i=0; i<tabUser.length; i++){
         const option = document.createElement("option");
         option.value = i+1
-        option.innerHTML = tabUser[i].username;
+        option.textContent = tabUser[i].username;
         selectUser.appendChild(option);
     }
 }
@@ -41,7 +43,7 @@ function createTabTicket(){
         const td1 = document.createElement("td");
         td1.textContent = findUser(tabTicket[i].users_id);
         const td2 = document.createElement("td");
-        td2.textContent = tabTicket[i].subject;
+        td2.textContent= tabTicket[i].subject;
         tr.appendChild(th);
         tr.appendChild(td1);
         tr.appendChild(td2);
@@ -94,6 +96,9 @@ function help(){
     
 }
 
+function pass(){
+    
+}
 
 /* Post Ticket
 

@@ -1,4 +1,4 @@
-<html lang="en">
+<html lang="fr">
 
 <head>
     <meta charset="UTF-8">
@@ -10,45 +10,60 @@
         integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
 </head>
 
-<body>
-    <header>
-        <h1>WebHelpRequest</h1>
+<body class=" bg-secondary p-2 text-dark bg-opacity-10">
+    <header class="bg-secondary p-2 text-dark bg-opacity-50 text-center ">
+        <h1 class="display-4">WebHelpRequest</h1>
     </header>
-    <div>
-        <h2>Distributeur de tickets pour la promo</h2>
-    </div>
-    <h3>Ici c'est comme à la poissonnerie, il faut prendre un ticket</h3>
-    <div>    
-        <select id="selectUser" class="form-select w-25 p-3 align-baseline"  placeholder="Prénom des apprenants" aria-label="Default select example">
-            <option value="0" selected></option>
-        </select>
-    </div>
-    <div class="form-floating ">
-        <p>Description des tickets</p>
-        <textarea class="form-control w-25 p-3" placeholder="Description du ticket"></textarea>
-    </div>
-    <div>
-        <button id="help" type="button" class="btn btn-dark">Je veux de l'aide</button>
-    </div>
-    </div>
-        <h2>Liste des tickets apprenant.e.s</h2>
-    </div>
-    <div><button id="next" type="button" class="btn btn-dark">Au suivant</button></div>
-    <div>
-        <table class="table">
-            <thead>
-                <tr>
-                    <th scope="col">ID du ticket</th>
-                    <th scope="col">Prénom de l'apprenant.e.s</th>
-                    <th scope="col">Description du ticket</th>
-                </tr>
-            </thead>
-            <tbody id="tickets">
-            </tbody>
-        </table>
-    </div>
-    <div>
-        <button type="button" class="btn btn-dark">Passer mon tour</button>
-    </div>
+    <main>
+        <div>
+            <h3 class="bg-secondary p-2 text-dark bg-opacity-25 fs-4 text-center">Distributeur de tickets de la promo
+            </h3>
+        </div class="">
+        <h3 class="fs-4 text-center">Ici c'est comme à la poissonnerie, il faut prendre un ticket</h3>
+        <section class="container d-flex justify-content-around mt-5">
+            <div class=" p-2">
+                <label>Prénoms des apprenant.e.s</label>
+                <select id="selectUser" class="form-select w-75 p-3 p-2" placeholder="Prénom des apprenants"
+                    aria-label="Default select example">
+                    <option value="0" selected></option>
+                </select>
+            </div>
+            <div class=" p-2">
+                <label>Description des tickets</label>
+                <div class="form-floating ">
+
+                    <textarea class="form-control w-100 p-1 p-2 " placeholder="Description du ticket"></textarea>
+                </div>
+            </div>
+            <div class="p-2 mt-4">
+                <button id="help" type="button" class="btn btn-dark p-2 ">Je veux de l'aide</button>
+            </div>
+        </section>
+        </div>
+        <h2 class="text-center mt-5">Liste des tickets apprenant.e.s</h2>
+        </div>
+        <div class="container  d-flex justify-content-center">
+            <button id="next" type="button" class="btn btn-dark   mt-5 ">Au suivant</button>
+        </div>
+        <div class="d-flex justify-content-around mt-4">
+            <div w-75>
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th scope="col">ID du ticket</th>
+                            <th scope="col">Prénom de l'apprenant.e.s</th>
+                            <th scope="col">Description du ticket</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tickets">
+                    </tbody>
+                </table>
+            </div>
+            <div>
+                <button id="pass" type="button" class="btn btn-dark container-sm fs-6 p-2 w25 mt-5">Passer</button>
+            </div>
+        </div>
+    </main>
 </body>
+
 </html>
