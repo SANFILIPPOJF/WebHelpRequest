@@ -1,6 +1,10 @@
 const selectUser = document.getElementById('selectUser');
 const tickets = document.getElementById('tickets');
+const buttonNext = document.getElementById('next');
+const buttonHelp = document.getElementById('help');
 
+buttonNext.addEventListener('click', next);
+buttonHelp.addEventListener('click', help);
 // Definition des classes d'objets
 class Ticket {
     constructor(key= 0, done = 0, users_id = 0, subject = ""){
@@ -33,11 +37,11 @@ function createTabTicket(){
     for(let i=0; i<tabTicket.length; i++){
         const tr = document.createElement("tr");
         const th = document.createElement("th");
-        th.innerHTML = i+1;
+        th.textContent = i+1;
         const td1 = document.createElement("td");
-        td1.innerHTML = findUser(tabTicket[i].users_id);
+        td1.textContent = findUser(tabTicket[i].users_id);
         const td2 = document.createElement("td");
-        td2.innerHTML = tabTicket[i].subject;
+        td2.textContent = tabTicket[i].subject;
         tr.appendChild(th);
         tr.appendChild(td1);
         tr.appendChild(td2);
@@ -82,7 +86,13 @@ fetch('https://webhelprequest.deta.dev/tickets',)
     })
     .catch(err => console.error(err));
 
+function next(){
 
+}
+
+function help(){
+    
+}
 
 
 /* Post Ticket
