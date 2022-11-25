@@ -44,10 +44,19 @@ function createTabTicket(){
         td1.textContent = findUser(tabTicket[i].users_id);
         const td2 = document.createElement("td");
         td2.textContent= tabTicket[i].subject;
+        const btnPass = document.createElement("button");
+        btnPass.type = "button";
+        btnPass.className= "btn btn-light container-sm fs-6 p-2 w25 mt-5"
+        btnPass.id=`btnPass${i}`
+        btnPass.textContent="Passer son tour";
         tr.appendChild(th);
         tr.appendChild(td1);
         tr.appendChild(td2);
+        tr.appendChild(btnPass);
         tickets.appendChild(tr);
+        if(i == tabTicket.length -1){
+            btnPass.className = "invisible btn btn-light container-sm fs-6 p-2 w25 mt-5"
+        }
     }
 }
 
@@ -97,7 +106,7 @@ function help(){
 }
 
 function pass(){
-    
+
 }
 
 /* Post Ticket
