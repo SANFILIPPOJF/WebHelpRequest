@@ -47,14 +47,16 @@ function createTabTicket() {
             btnPass.type = "button";
             btnPass.className = "btn btn-light container-sm fs-6 p-2 w25 mt-5"
             btnPass.id = `btnPass${i}`
-            btnPass.textContent = "Passer son tour";
+            const iArrow = document.createElement("i");
+            iArrow.className = "bi bi-trash fs-3"
+            btnPass.appendChild(iArrow);
             tr.appendChild(th);
             tr.appendChild(td1);
             tr.appendChild(td2);
             tr.appendChild(btnPass);
             tickets.appendChild(tr);
             if (i == tabTicket.length - 1) {
-                btnPass.className = "invisible btn btn-light container-sm fs-6 p-2 w25 mt-5"
+                btnPass.className = "invisible bi bi-trash container-sm fs-6 p-2 w25 mt-5"
             }
         }
     }
