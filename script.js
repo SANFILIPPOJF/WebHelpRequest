@@ -57,9 +57,6 @@ function createTabTicket() {
         tr.appendChild(td2);
         tr.appendChild(btnPass);
         tickets.appendChild(tr);
-        if (i == tabTicketUndone.length - 1) {
-            btnPass.className = "invisible btn btn-light container-sm fs-6 p-2 w25 mt-5"
-        }
     }
 }
 // bouton passer son tour
@@ -72,9 +69,9 @@ function btnTrash(event) {
         .then(response => console.log(response))
         .catch(err => console.error(err));
 }
-function findUser(id) {
+function findUser(idUser) {
     for (a = 0; a < tabUser.length; a++) {
-        if (tabUser[a].key == id) {
+        if (tabUser[a].key == idUser) {
             return tabUser[a].username;
         }
     }
