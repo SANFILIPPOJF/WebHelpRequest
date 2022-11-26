@@ -1,7 +1,7 @@
 const selectUser = document.getElementById('selectUser');
 const tickets = document.getElementById('tickets');
 const buttonHelp = document.getElementById('help');
-const ticketDescrip = document.getElementById('ticketDescrip');
+const ticketDescrip = document.getElementById('textDescrip');
 
 buttonHelp.addEventListener('click', help);
 
@@ -129,7 +129,8 @@ function help() {
         };
         fetch('https://webhelprequest.deta.dev/tickets', options)
             .then(response => response.json())
-            .then(response => console.log(response))
+            .then(response =>{ location.reload();
+                })
             .catch(err => alert(err));
     }
 }
