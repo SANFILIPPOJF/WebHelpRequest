@@ -1,6 +1,5 @@
 const selectUser = document.getElementById('selectUser');
 const tickets = document.getElementById('tickets');
-const buttonNext = document.getElementById('next');
 const buttonHelp = document.getElementById('help');
 const ticketDescrip = document.getElementById('ticketDescrip');
 
@@ -26,6 +25,10 @@ class User {
 let tabUser = [];
 let tabTicket = [];
 let tabTicketUndone = [];
+
+// initialisation
+refreshUsers();
+refreshTickets();
 
 // menu deroulant des username existants
 function createSelectValue() {
@@ -68,8 +71,11 @@ function btnTrash(event) {
 
     fetch(`https://webhelprequest.deta.dev/tickets/${event.srcElement.parentNode.id}`, options)
         .then(response => response.json())
-        .then(response => console.log(response))
-        .catch(err => console.error(err));
+        .then(response => {
+            alert(response.data);
+
+        })
+        .catch(err => alert(err));
 }
 // fonction qui retourne l'username a partir de l'id
 function findUser(idUser) {
@@ -81,8 +87,9 @@ function findUser(idUser) {
     return
 }
 
-// reception de la base users
-fetch('https://webhelprequest.deta.dev/users',)
+// initialisation de la base users
+function refreshUsers(){
+    fetch('https://webhelprequest.deta.dev/users',)
     .then(response => response.json())
     .then(response => {
         for (b = 0; b < response.data.length; b++) {
@@ -91,9 +98,11 @@ fetch('https://webhelprequest.deta.dev/users',)
         createSelectValue();
     })
     .catch(err => alertr(err));
+}
 
-// reception de la base tickets
-fetch('https://webhelprequest.deta.dev/tickets',)
+// initialisation de la base tickets
+function refreshTickets(){
+    fetch('https://webhelprequest.deta.dev/tickets',)
     .then(response => response.json())
     .then(response => {
         for (c = 0; c < response.data.length; c++) {
@@ -104,6 +113,8 @@ fetch('https://webhelprequest.deta.dev/tickets',)
         createTabTicket();
     })
     .catch(err => alert(err));
+}
+
 // fonction qui envoie un ticket dans la base
 function help() {
     if (selectUser.value == 0) {
