@@ -2,7 +2,7 @@ const selectUser = document.getElementById('selectUser');
 const tickets = document.getElementById('tickets');
 const bodyTickets = document.getElementById('bodyTickets');
 const buttonHelp = document.getElementById('help');
-const ticketDescrip = document.getElementById('ticketDescrip');
+const ticketDescrip = document.getElementById('textDescrip');
 
 buttonHelp.addEventListener('click', help);
 
