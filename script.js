@@ -2,6 +2,7 @@ const selectUser = document.getElementById('selectUser');
 const tickets = document.getElementById('tickets');
 const buttonNext = document.getElementById('next');
 const buttonHelp = document.getElementById('help');
+const textDescrip = document.getElementById('textDescrip');
 
 buttonNext.addEventListener('click', next);
 buttonHelp.addEventListener('click', help);
@@ -31,9 +32,9 @@ function createSelectValue() {
         option.value = i + 1
         option.textContent = tabUser[i].username;
         selectUser.appendChild(option);
+        console.log("option", option.value)
     }
 }
-
 function createTabTicket() {
     for (let i = 0; i < tabTicketUndone.length; i++) {
         const tr = document.createElement("tr");
@@ -45,9 +46,9 @@ function createTabTicket() {
         td2.textContent = tabTicket[i].subject;
         const btnPass = document.createElement("button");
         btnPass.type = "button";
-        btnPass.className = "btn btn-light container-sm  p-2 w25 mt-5"
-        btnPass.id = `btnPass${i}`
-        //btnPass.textContent = "Passer son tour";
+        btnPass.className = "btn btn-light container-sm  p-2 w25 mt-5";
+        btnPass.id = tabTicket[i].key;
+        btnPass.addEventListener('click', (event) => { btnTrash(event) });
         const iTrash = document.createElement("i");
         iTrash.className = "bi bi-trash ";
         btnPass.appendChild(iTrash);
@@ -56,16 +57,28 @@ function createTabTicket() {
         tr.appendChild(td2);
         tr.appendChild(btnPass);
         tickets.appendChild(tr);
+        if (i == tabTicketUndone.length - 1) {
+            btnPass.className = "invisible btn btn-light container-sm fs-6 p-2 w25 mt-5"
+        }
     }
 }
+// bouton passer son tour
+function btnTrash(event) {
+    console.log(event.srcElement.parentNode.id);
+    const options = { method: 'PATCH', body: new URLSearchParams({}) };
 
+    fetch(`https://webhelprequest.deta.dev/tickets/${event.srcElement.parentNode.id}`, options)
+        .then(response => response.json())
+        .then(response => console.log(response))
+        .catch(err => console.error(err));
+}
 function findUser(id) {
     for (a = 0; a < tabUser.length; a++) {
         if (tabUser[a].key == id) {
             return tabUser[a].username;
         }
     }
-    return "anonymious";
+    return
 }
 
 // get users
@@ -98,31 +111,22 @@ fetch('https://webhelprequest.deta.dev/tickets',)
     })
     .catch(err => console.error(err));
 
-function next() {
-
-}
-
 function help() {
-
+    if (selectUser.value == 0) {
+        alert("Veuillez choisir un User");
+    } else {
+        const options = {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+            body: new URLSearchParams({ done: 0, subject: textDescrip.value, userId: tabUser[(selectUser.value) - 1].key })
+        };
+        fetch('https://webhelprequest.deta.dev/tickets', options)
+            .then(response => response.json())
+            .then(response => console.log(response))
+            .catch(err => console.error(err));
+    }
 }
 
-function pass() {
-
-}
-
-/* Post Ticket
-
-const options = {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-    body: new URLSearchParams({ done: '0', subject: 'en fait, c\'est bon...', userId: '9ggb9d682hec' })
-};
-
-fetch('https://webhelprequest.deta.dev/tickets', options)
-    .then(response => response.json())
-    .then(response => console.log(response))
-    .catch(err => console.error(err));
-*/
 
 /* post 
 let response = fetch('https://webhelprequest.deta.dev/users', {
