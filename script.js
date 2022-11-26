@@ -46,11 +46,11 @@ function createTabTicket() {
         td2.textContent = tabTicket[i].subject;
         const btnPass = document.createElement("button");
         btnPass.type = "button";
-        btnPass.className = "btn btn-light container-sm  p-2 w25 mt-5";
+        btnPass.className = "btn btn-light container-sm row mt-5";
         btnPass.id = tabTicket[i].key;
         btnPass.addEventListener('click', (event) => { btnTrash(event) });
         const iTrash = document.createElement("i");
-        iTrash.className = "bi bi-trash ";
+        iTrash.className = "bi bi-trash fs-2";
         btnPass.appendChild(iTrash);
         tr.appendChild(th);
         tr.appendChild(td1);

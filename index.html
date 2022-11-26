@@ -11,7 +11,7 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.2/font/bootstrap-icons.css">
 </head>
 
-<body class=" bg-secondary p-2 text-dark bg-opacity-10">
+<body class="container-sm-xl bg-secondary p-2 text-dark bg-opacity-10">
     <header class="bg-secondary p-2 text-dark bg-opacity-50 text-center ">
         <h1 class="display-4">WebHelpRequest</h1>
     </header>
@@ -20,35 +20,36 @@
             <h3 class="bg-secondary p-2 text-dark bg-opacity-25 fs-4 text-center">Distributeur de tickets de la promo
             </h3>
         </div class="">
-        <h3 class="fs-4 text-center">Ici c'est comme à la poissonnerie, il faut prendre un ticket</h3>
-        <section class="container d-flex justify-content-around mt-5">
-            <div class=" p-2">
+        <h3 class="fs-4 text-center">Toute question mérite d'être posée donc prenez un ticket.</h3>
+        <section class="container text-center mt-5">
+            <div class=" row">
+                <div class="col col-6 col-md-4 w-25">
                 <label>Prénoms des apprenant.e.s</label>
-                <select id="selectUser" class="form-select w-75 p-3 p-2" placeholder="Prénom des apprenants"
+                <select id="selectUser" class="form-select  col" placeholder="Prénom des apprenants"
                     aria-label="Default select example">
                     <option value="0" selected></option>
                 </select>
             </div>
-            <div class=" p-2">
+            
+                <div class="col col-md-8 ">
                 <label>Description des tickets</label>
-                <div class="form-floating ">
-
-                    <textarea id="textDescrip" class="form-control w-100 p-1 p-2 " placeholder="Description du ticket"></textarea>
+                <div class="form-floating">
+                    <textarea class="form-control  p-1  " placeholder="Description du ticket"></textarea>
                 </div>
             </div>
-            <div class="p-2 mt-4">
-                <button id="help" type="button" class="btn btn-dark p-2 ">Je veux de l'aide</button>
+            <div class="col mt-4">
+                <button id="help" type="button" class="btn btn-dark  ">Je veux de l'aide</button>
+            </div>
             </div>
         </section>
         </div>
         <h2 class="text-center mt-5">Liste des tickets apprenant.e.s</h2>
         </div>
-        <div class="container  d-flex justify-content-center">
-            <button id="next" type="button" class="btn btn-dark   mt-5 ">Au suivant</button>
+        <div class="container-sm d-flex justify-content-center">
+            <button id="next" type="button" class="btn btn-dark  mb-5 mt-5 ">Au suivant</button>
         </div>
-        <div class="d-flex justify-content-around mt-4 ">
-            <div class="w-75">
-                <table class="table">
+        <div class=" container-sm-lg-xl  mx-auto ">
+                <table class="table w-75 mx-auto">
                     <thead>
                         <tr>
                             <th scope="col">ID du ticket</th>
@@ -60,8 +61,7 @@
                     </tbody>
                 </table>
             </div>
-        </div>
-    </main>
-</body>
+        </main>
+    </body>
 
 </html>
