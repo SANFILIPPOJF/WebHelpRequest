@@ -2,11 +2,11 @@ const selectUser = document.getElementById('selectUser');
 const tickets = document.getElementById('tickets');
 const buttonNext = document.getElementById('next');
 const buttonHelp = document.getElementById('help');
-const textDescrip = document.getElementById('textDescrip');
+const ticketDescrip = document.getElementById('ticketDescrip');
 
-buttonNext.addEventListener('click', next);
 buttonHelp.addEventListener('click', help);
-// Definition des classes d'objets
+
+// Definition des classes d'objets (Ticket et User)
 class Ticket {
     constructor(key = 0, done = 1, users_id = 0, subject = "") {
         this.key = key;
@@ -21,33 +21,35 @@ class User {
         this.username = username;
     }
 }
+
 // definitions des tableaux 
 let tabUser = [];
 let tabTicket = [];
 let tabTicketUndone = [];
 
+// menu deroulant des username existants
 function createSelectValue() {
     for (let i = 0; i < tabUser.length; i++) {
         const option = document.createElement("option");
         option.value = i + 1
         option.textContent = tabUser[i].username;
         selectUser.appendChild(option);
-        console.log("option", option.value)
     }
 }
+// table des tickets non réalisés
 function createTabTicket() {
-    for (let i = 0; i < tabTicketUndone.length; i++) {
+    for (let j = 0; j < tabTicketUndone.length; j++) {
         const tr = document.createElement("tr");
         const th = document.createElement("th");
-        th.textContent = i + 1;
+        th.textContent = j + 1;
         const td1 = document.createElement("td");
-        td1.textContent = findUser(tabTicket[i].users_id);
+        td1.textContent = findUser(tabTicketUndone[j].users_id);
         const td2 = document.createElement("td");
-        td2.textContent = tabTicket[i].subject;
+        td2.textContent = tabTicketUndone[j].subject;
         const btnPass = document.createElement("button");
         btnPass.type = "button";
         btnPass.className = "btn btn-light container-sm row mt-5";
-        btnPass.id = tabTicket[i].key;
+        btnPass.id = tabTicketUndone[j].key;
         btnPass.addEventListener('click', (event) => { btnTrash(event) });
         const iTrash = document.createElement("i");
         iTrash.className = "bi bi-trash fs-2";
@@ -59,7 +61,7 @@ function createTabTicket() {
         tickets.appendChild(tr);
     }
 }
-// bouton passer son tour
+// bouton trash (ticket réalisé)
 function btnTrash(event) {
     console.log(event.srcElement.parentNode.id);
     const options = { method: 'PATCH', body: new URLSearchParams({}) };
@@ -69,6 +71,7 @@ function btnTrash(event) {
         .then(response => console.log(response))
         .catch(err => console.error(err));
 }
+// fonction qui retourne l'username a partir de l'id
 function findUser(idUser) {
     for (a = 0; a < tabUser.length; a++) {
         if (tabUser[a].key == idUser) {
@@ -78,49 +81,45 @@ function findUser(idUser) {
     return
 }
 
-// get users
+// reception de la base users
 fetch('https://webhelprequest.deta.dev/users',)
     .then(response => response.json())
     .then(response => {
-        console.log("length", response.data.length);
-        console.log(response.data);
-        for (i = 0; i < response.data.length; i++) {
-            tabUser.push(new User(response.data[i].key, response.data[i].username));
+        for (b = 0; b < response.data.length; b++) {
+            tabUser.push(new User(response.data[b].key, response.data[b].username));
         }
         createSelectValue();
-        console.log(tabUser);
     })
-    .catch(err => console.error(err));
+    .catch(err => alertr(err));
 
-// get tickets
+// reception de la base tickets
 fetch('https://webhelprequest.deta.dev/tickets',)
     .then(response => response.json())
     .then(response => {
-        console.log("length", response.data.length);
-        console.log(response.data);
-        for (i = 0; i < response.data.length; i++) {
-            tabTicket.push(new Ticket(response.data[i].key, response.data[i].done, response.data[i].users_id, response.data[i].subject));
+        for (c = 0; c < response.data.length; c++) {
+            tabTicket.push(new Ticket(response.data[c].key, response.data[c].done, response.data[c].users_id, response.data[c].subject));
         }
+        // creation d'une table des tickets non réalisés
         tabTicketUndone = tabTicket.filter(ticket => ticket.done == 0);
-        console.log(tabTicketUndone);
         createTabTicket();
-        console.log(tabTicket);
     })
-    .catch(err => console.error(err));
-
+    .catch(err => alert(err));
+// fonction qui envoie un ticket dans la base
 function help() {
     if (selectUser.value == 0) {
         alert("Veuillez choisir un User");
-    } else {
+    } else if (ticketDescrip.value == ""){
+        alert("Veuillez saisir la description de votre demande d'aide");
+    }else{
         const options = {
             method: 'POST',
             headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-            body: new URLSearchParams({ done: 0, subject: textDescrip.value, userId: tabUser[(selectUser.value) - 1].key })
+            body: new URLSearchParams({ done: 0, subject: ticketDescrip.value, userId: tabUser[(selectUser.value) - 1].key })
         };
         fetch('https://webhelprequest.deta.dev/tickets', options)
             .then(response => response.json())
             .then(response => console.log(response))
-            .catch(err => console.error(err));
+            .catch(err => alert(err));
     }
 }
 
