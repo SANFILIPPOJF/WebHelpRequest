@@ -34,7 +34,7 @@
                 <div class="col col-md-8 ">
                 <label>Description des tickets</label>
                 <div class="form-floating">
-                    <textarea id="textDescrip" class="form-control  p-1  " placeholder="Description du ticket"></textarea>
+                    <textarea id="textDescrip" class="form-control  p-1  " placeholder="Description du ticket"> </textarea>
                 </div>
             </div>
             <div class="col mt-4">
@@ -49,7 +49,7 @@
             <button id="next" type="button" class="btn btn-dark  mb-5 mt-5 ">Au suivant</button>
         </div>
         <div class=" container-sm-lg-xl  mx-auto ">
-                <table class="table w-75 mx-auto">
+                <table id="tickets" class="table w-75 mx-auto">
                     <thead>
                         <tr>
                             <th scope="col">ID du ticket</th>
@@ -57,7 +57,7 @@
                             <th scope="col">Description du ticket</th>
                         </tr>
                     </thead>
-                    <tbody id="tickets">
+                    <tbody id="bodyTickets">
                     </tbody>
                 </table>
             </div>

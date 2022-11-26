@@ -1,5 +1,6 @@
 const selectUser = document.getElementById('selectUser');
 const tickets = document.getElementById('tickets');
+const bodyTickets = document.getElementById('bodyTickets');
 const buttonHelp = document.getElementById('help');
 const ticketDescrip = document.getElementById('ticketDescrip');
 
@@ -61,7 +62,7 @@ function createTabTicket() {
         tr.appendChild(td1);
         tr.appendChild(td2);
         tr.appendChild(btnPass);
-        tickets.appendChild(tr);
+        bodyTickets.appendChild(tr);
     }
 }
 // bouton trash (ticket réalisé)
@@ -73,7 +74,7 @@ function btnTrash(event) {
         .then(response => response.json())
         .then(response => {
             alert(response.data);
-
+            location.reload();
         })
         .catch(err => alert(err));
 }
@@ -119,17 +120,18 @@ function refreshTickets(){
 function help() {
     if (selectUser.value == 0) {
         alert("Veuillez choisir un User");
-    } else if (ticketDescrip.value == ""){
-        alert("Veuillez saisir la description de votre demande d'aide");
     }else{
         const options = {
             method: 'POST',
             headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-            body: new URLSearchParams({ done: 0, subject: ticketDescrip.value, userId: tabUser[(selectUser.value) - 1].key })
+            body: new URLSearchParams({ done: 0, subject: ticketDescrip, userId: tabUser[(selectUser.value) - 1].key })
         };
         fetch('https://webhelprequest.deta.dev/tickets', options)
             .then(response => response.json())
-            .then(response => console.log(response))
+            .then(response => {
+                alert("ticket envoyé");
+                location.reload();
+            })
             .catch(err => alert(err));
     }
 }
