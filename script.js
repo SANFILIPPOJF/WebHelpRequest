@@ -2,7 +2,9 @@ const selectUser = document.getElementById('selectUser');
 const bodyTickets = document.getElementById('bodyTickets');
 const buttonHelp = document.getElementById('help');
 const ticketDescrip = document.getElementById('textDescrip');
-
+const user =document.getElementById('user');
+const nbtickets = document.getElementById('nbtickets');
+const tickets_undone = document.getElementById('tickets_undone');
 buttonHelp.addEventListener('click', help);
 
 // Definition des classes d'objets (Ticket et User)
@@ -116,7 +118,11 @@ function refreshTickets(){
             let tab = tabTicket.filter(ticket => ticket.users_id == tabUser[d].key)
             tabUser[d].nbTickets = tab.length;
             tabUser[d].ticketsUndone = tab.filter(ticket => ticket.done == 0).length;
-            console.log("user",tabUser[d].username,"nbtickets",tabUser[d].nbTickets,"tickets undone",tabUser[d].ticketsUndone);
+            console.log("user",tabUser[d].username,"nbtickets",tabUser[d].nbTickets,"tickets_undone",tabUser[d].ticketsUndone);
+            user.textContent = tabUser[d].username;
+            nbtickets.textContent = tabUser[d].nbTickets;
+            tickets_undone.textContent = tabUser[d].ticketsUndone;
+            
         }
         createTabTicket();
     })
