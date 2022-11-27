@@ -123,6 +123,7 @@ function refreshTickets(){
             user.textContent = tabUser[d].username;
             nbtickets.textContent = tabUser[d].nbTickets;
             tickets_undone.textContent = tabUser[d].ticketsUndone;
+            
         }
         createTabTicket();
     })
