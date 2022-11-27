@@ -1,5 +1,4 @@
 const selectUser = document.getElementById('selectUser');
-const tickets = document.getElementById('tickets');
 const bodyTickets = document.getElementById('bodyTickets');
 const buttonHelp = document.getElementById('help');
 const ticketDescrip = document.getElementById('textDescrip');
@@ -19,7 +18,8 @@ class User {
     constructor(key = "", username = 0) {
         this.key = key;
         this.username = username;
-
+        this.nbTickets = 0;
+        this.ticketsUndone = 0;
     }
 }
 
@@ -30,7 +30,7 @@ let tabTicketUndone = [];
 
 // initialisation
 refreshUsers();
-refreshTickets();
+setTimeout(refreshTickets(),100);
 
 // menu deroulant des username existants
 function createSelectValue() {
@@ -48,7 +48,8 @@ function createTabTicket() {
         const th = document.createElement("th");
         th.textContent = j + 1;
         const td1 = document.createElement("td");
-        td1.textContent = findUser(tabTicketUndone[j].users_id);
+        let user = tabUser.find (tab => tab.key == tabTicketUndone[j].users_id);
+        td1.textContent = user.username;
         const td2 = document.createElement("td");
         td2.textContent = tabTicketUndone[j].subject;
         const btnPass = document.createElement("button");
@@ -84,7 +85,6 @@ function findUser(idUser) {
     for (a = 0; a < tabUser.length; a++) {
         if (tabUser[a].key == idUser) {
             return tabUser[a].username;
-            
         }
     }
     return
@@ -113,6 +113,12 @@ function refreshTickets(){
         }
         // creation d'une table des tickets non réalisés
         tabTicketUndone = tabTicket.filter(ticket => ticket.done == 0);
+        for (d = 0; d < tabUser.length; d++){
+            let tab = tabTicket.filter(ticket => ticket.users_id == tabUser[d].key)
+            tabUser[d].nbTickets = tab.length;
+            tabUser[d].ticketsUndone = tab.filter(ticket => ticket.done == 0).length;
+            console.log("user",tabUser[d].username,"nbtickets",tabUser[d].nbTickets,"tickets undone",tabUser[d].ticketsUndone);
+        }
         createTabTicket();
     })
     .catch(err => alert(err));
@@ -137,8 +143,6 @@ function help() {
             .catch(err => alert(err));
     }
 }
-
-
 
 /* post 
 let response = fetch('https://webhelprequest.deta.dev/users', {
