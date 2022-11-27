@@ -1,3 +1,4 @@
+// liens HTML
 const selectUser = document.getElementById('selectUser');
 const bodyTickets = document.getElementById('bodyTickets');
 const buttonHelp = document.getElementById('help');
@@ -48,14 +49,15 @@ function createSelectValue() {
     }
 
 }
-// table des tickets non réalisés
+
+// création du tableau HTML des tickets VALABLES non réalisés
 function createTabTicket() {
     for (let j = 0; j < tabTicketUndone.length; j++) {
         const tr = document.createElement("tr");
         const th = document.createElement("th");
         th.textContent = j + 1;
         const td1 = document.createElement("td");
-        td1.textContent = tabTicketUndone[j].users_id;
+        td1.textContent = tabUser.find (tab => tab.key == tabTicketUndone[j].users_id).username;
         const td2 = document.createElement("td");
         td2.textContent = tabTicketUndone[j].subject;
         const btnPass = document.createElement("button");
@@ -73,14 +75,15 @@ function createTabTicket() {
         bodyTickets.appendChild(tr);
     }
 }
+
+// affiche les stats du user selectionné
 function statsUser(){
-    console.log("value",selectUser.value);
     if (selectUser.value > 0){
         let x = selectUser.value-1;
         displayUser.textContent = tabUser[x].username;
         nbtickets.textContent = tabUser[x].nbTickets;
         statTotaux.textContent = `${Math.round((tabUser[x].nbTickets)/(tabTicket.length)*100)}%`
-        tickets_undone.textContent = `${(Math.round((tabUser[x].ticketsUndone)/(tabUser[x].nbTickets)*100))}%`;
+        tickets_undone.textContent = `${100-(Math.round((tabUser[x].ticketsUndone)/(tabUser[x].nbTickets)*100))}%`;
     }
 }
 
@@ -117,15 +120,14 @@ function refreshTickets(){
         for (c = 0; c < response.data.length; c++) {
             tabTicket.push(new Ticket(response.data[c].key, response.data[c].done, response.data[c].users_id, response.data[c].subject));
         }
-        // creation d'une table des tickets non réalisés
-        tabTicketUndone = tabTicket.filter(ticket => ticket.done == 0);
+        // creation de la table des tickets non réalisés et valables 
+        let tabInter = tabTicket.filter(ticket => ticket.done == 0);
+        tabTicketUndone = tabInter.filter(ticket => ticket.users_id.length == 12);
         for (d = 0; d < tabUser.length; d++){
             let tab = tabTicket.filter(ticket => ticket.users_id == tabUser[d].key)
             tabUser[d].nbTickets = tab.length;
             tabUser[d].ticketsUndone = tab.filter(ticket => ticket.done == 0).length;
-            console.log("user",tabUser[d].username,"nbtickets",tabUser[d].nbTickets,"tickets_undone",tabUser[d].ticketsUndone);
         }
-        console.log(tabTicketUndone);
         createTabTicket();
     })
     .catch(err => alert(err));
@@ -150,17 +152,3 @@ function help() {
             .catch(err => alert(err));
     }
 }
-
-/* 
-selectUser.addEventListener('change', statsUser());
-
-/* post 
-let response = fetch('https://webhelprequest.deta.dev/users', {
-    method: 'POST',
-    headers: {
-        'Content-Type': 'application/x-www-form-urlencoded'
-    },
-    body: JSON.stringify(user)
-})
-    .then(response => response.json())
-    .then(json => console.log(json)); */
