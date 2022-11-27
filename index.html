@@ -1,70 +1,70 @@
-<html lang="fr">
+<html lang="fr" class="p-0">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <script defer src="script.js"></script>
+        <title>Document</title>
+        <link
+        href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css"
+        rel="stylesheet"
+        integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65"
+        crossorigin="anonymous"
+        />
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.2/font/bootstrap-icons.css"/>
+    </head>
 
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script defer src="script.js"></script>
-    <title>Document</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.2/font/bootstrap-icons.css">
-</head>
-
-<body class="container-xl-sm bg-secondary p-2 text-dark bg-opacity-10">
-    <header class="container-fluid">
-        <div class="bg-secondary p-2 text-dark bg-opacity-50 text-center ">
+    <body class="p-0">
+        <header class="container-fluid">
+        <div class="bg-secondary p-2 text-dark bg-opacity-50 text-center">
             <h1 class="display-4">WebHelpRequest</h1>
         </div>
-        
-    </header>
-    <main>
-        <section class="container-fluid">
-            <h3 class="bg-secondary p-2 text-dark bg-opacity-25 fs-4 text-center">Distributeur de tickets de la promo
-            </h3>
-        </div class="">
-        <h3 class="fs-4 text-center">Toute question mérite d'être posée donc prenez un ticket.</h3>
+        </header>
+        <main>
+    <!--Titre et objet du WebHelpRequest-->
+        <div class="container-fluid">
+            <h3 class="bg-info p-2 text-dark bg-opacity-25 fs-4 text-center">Distributeur de tickets de la promo</h3>
+            <h3 class="fs-4 text-center">Toute question mérite d'être posée donc prenez un ticket.</h3>
+        </div>
+    <!--Section des apprenants et la descriptionde la demande-->
         <section class="container text-center mt-5">
-            <div class=" row">
-                <div class="col col-6 col-md-4 w-25">
-                <label>Prénoms des apprenant.e.s</label>
-                <select id="selectUser" class="form-select  col" placeholder="Prénom des apprenants"
-                    aria-label="Default select example">
+            <div class="row">
+                <div class="col-md-4 col-lg-4 col-xs-12 col-sm-12">
+                <label class="fs-4">Prénoms des apprenant.e.s</label>
+                <select id="selectUser" class="form-select ms-0" placeholder="Prénom des apprenants">
                     <option value="0" selected></option>
                 </select>
             </div>
-            
-                <div class="col col-md-8 ">
-                <label>Description des tickets</label>
-                <div class="form-floating">
-                    <textarea id="textDescrip" class="form-control  p-1  " placeholder="Description du ticket"> </textarea>
-                </div>
+            <div class="col-md-5 col-lg-5 col-xs-12 col-sm-12">
+                <label class="fs-4">Description des tickets</label>
+            <div class="form-floating">
+                <textarea id="textDescrip" class="form-control" placeholder="Description du ticket">
+                </textarea>
             </div>
-            <div class="col mt-4">
-                <button id="help" type="button" class="btn btn-dark  ">Je veux de l'aide</button>
+            </div>
+            <div class="col-md-3 col-lg-3 col-xs-12 col-sm-12 mt-5">
+                <button id="help" type="button" class="btn btn-dark">Je veux de l'aide</button>
             </div>
             </div>
         </section>
-        </section>
-        <h2 class="text-center mt-5">Liste des tickets apprenant.e.s</h2>
-        </div>
-        <!--<div class="container-sm d-flex justify-content-center">
+    <!--<div class="container-sm d-flex justify-content-center">
             <button id="next" type="button" class="btn btn-dark  mb-5 mt-5 ">Au suivant</button>
         </div>-->
-        <div class=" container-sm-lg-xl  mx-auto ">
-                <table id="tickets" class="table w-75 mx-auto">
-                    <thead>
-                        <tr>
-                            <th scope="col">ID du ticket</th>
-                            <th scope="col">Prénom de l'apprenant.e.s</th>
-                            <th scope="col">Description du ticket</th>
-                        </tr>
-                    </thead>
-                    <tbody id="bodyTickets">
-                    </tbody>
-                </table>
-            </div>
-        </main>
+    <!--Section du suivi des demandes apprenants-->
+        <section class="container-fluid">
+            <h2 class="bg-info p-2 text-dark bg-opacity-25 fs-4 text-center mt-5 mb-5">Liste des tickets apprenant.e.s</h2>
+        <table class="table w-75 mx-auto">
+            <thead>
+                <tr>
+                    <th scope="col">ID du ticket</th>
+                    <th scope="col">Prénom de l'apprenant.e.s</th>
+                    <th scope="col">Description du ticket</th>
+                </tr>
+            </thead>
+            <tbody id="bodyTickets">
+            </tbody>
+        </table>
+        </section>
+    </main>
     </body>
-
 </html>
