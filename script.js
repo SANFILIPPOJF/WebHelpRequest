@@ -69,7 +69,6 @@ function createTabTicket() {
 }
 // bouton trash (ticket réalisé)
 function btnTrash(event) {
-    console.log(event.srcElement.parentNode.id);
     const options = { method: 'PATCH', body: new URLSearchParams({}) };
 
     fetch(`https://webhelprequest.deta.dev/tickets/${event.srcElement.parentNode.id}`, options)
