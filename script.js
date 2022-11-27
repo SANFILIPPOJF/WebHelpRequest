@@ -19,6 +19,7 @@ class User {
     constructor(key = "", username = 0) {
         this.key = key;
         this.username = username;
+
     }
 }
 
@@ -124,7 +125,7 @@ function help() {
         const options = {
             method: 'POST',
             headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-            body: new URLSearchParams({ done: 0, subject: ticketDescrip, userId: tabUser[(selectUser.value) - 1].key })
+            body: new URLSearchParams({ done: 0, subject: ticketDescrip.value, userId: tabUser[(selectUser.value) - 1].key })
         };
         fetch('https://webhelprequest.deta.dev/tickets', options)
             .then(response => response.json())
