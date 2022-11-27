@@ -57,7 +57,7 @@ function createTabTicket() {
         btnPass.id = tabTicketUndone[j].key;
         btnPass.addEventListener('click', (event) => { btnTrash(event) });
         const iTrash = document.createElement("i");
-        iTrash.className = "bi bi-trash fs-2";
+        iTrash.className = "bi bi-trash fs-2 text-center";
         btnPass.appendChild(iTrash);
         tr.appendChild(th);
         tr.appendChild(td1);
@@ -84,12 +84,13 @@ function findUser(idUser) {
     for (a = 0; a < tabUser.length; a++) {
         if (tabUser[a].key == idUser) {
             return tabUser[a].username;
+            
         }
     }
     return
 }
 
-// initialisation de la base users
+// initialisation de la base users Method: Get
 function refreshUsers(){
     fetch('https://webhelprequest.deta.dev/users',)
     .then(response => response.json())
@@ -102,7 +103,7 @@ function refreshUsers(){
     .catch(err => alertr(err));
 }
 
-// initialisation de la base tickets
+// initialisation de la base tickets Method: Get
 function refreshTickets(){
     fetch('https://webhelprequest.deta.dev/tickets',)
     .then(response => response.json())
@@ -136,6 +137,7 @@ function help() {
             .catch(err => alert(err));
     }
 }
+
 
 
 /* post 
