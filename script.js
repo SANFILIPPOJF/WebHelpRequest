@@ -2,10 +2,13 @@ const selectUser = document.getElementById('selectUser');
 const bodyTickets = document.getElementById('bodyTickets');
 const buttonHelp = document.getElementById('help');
 const ticketDescrip = document.getElementById('textDescrip');
-const user =document.getElementById('user');
+const displayUser = document.getElementById('displayUser');
 const nbtickets = document.getElementById('nbtickets');
 const tickets_undone = document.getElementById('tickets_undone');
+const buttonstat = document.getElementById('stat');
+
 buttonHelp.addEventListener('click', help);
+buttonstat.addEventListener('click', statsUser);
 
 // Definition des classes d'objets (Ticket et User)
 class Ticket {
@@ -26,13 +29,13 @@ class User {
 }
 
 // definitions des tableaux 
-let tabUser = [];
-let tabTicket = [];
-let tabTicketUndone = [];
+var tabUser = [];
+var tabTicket = [];
+var tabTicketUndone = [];
 
 // initialisation
 refreshUsers();
-setTimeout(refreshTickets(),100);
+refreshTickets();
 
 // menu deroulant des username existants
 function createSelectValue() {
@@ -42,7 +45,9 @@ function createSelectValue() {
         option.textContent = tabUser[i].username;
         selectUser.appendChild(option);
     }
+
 }
+
 // table des tickets non réalisés
 function createTabTicket() {
     for (let j = 0; j < tabTicketUndone.length; j++) {
@@ -50,8 +55,7 @@ function createTabTicket() {
         const th = document.createElement("th");
         th.textContent = j + 1;
         const td1 = document.createElement("td");
-        let user = tabUser.find (tab => tab.key == tabTicketUndone[j].users_id);
-        td1.textContent = user.username;
+        td1.textContent = tabTicketUndone[j].users_id;
         const td2 = document.createElement("td");
         td2.textContent = tabTicketUndone[j].subject;
         const btnPass = document.createElement("button");
@@ -69,10 +73,11 @@ function createTabTicket() {
         bodyTickets.appendChild(tr);
     }
 }
+
+
 // bouton trash (ticket réalisé)
 function btnTrash(event) {
     const options = { method: 'PATCH', body: new URLSearchParams({}) };
-
     fetch(`https://webhelprequest.deta.dev/tickets/${event.srcElement.parentNode.id}`, options)
         .then(response => response.json())
         .then(response => {
@@ -80,15 +85,6 @@ function btnTrash(event) {
             location.reload();
         })
         .catch(err => alert(err));
-}
-// fonction qui retourne l'username a partir de l'id
-function findUser(idUser) {
-    for (a = 0; a < tabUser.length; a++) {
-        if (tabUser[a].key == idUser) {
-            return tabUser[a].username;
-        }
-    }
-    return
 }
 
 // initialisation de la base users Method: Get
@@ -101,7 +97,7 @@ function refreshUsers(){
         }
         createSelectValue();
     })
-    .catch(err => alertr(err));
+    .catch(err => alert(err));
 }
 
 // initialisation de la base tickets Method: Get
@@ -119,11 +115,8 @@ function refreshTickets(){
             tabUser[d].nbTickets = tab.length;
             tabUser[d].ticketsUndone = tab.filter(ticket => ticket.done == 0).length;
             console.log("user",tabUser[d].username,"nbtickets",tabUser[d].nbTickets,"tickets_undone",tabUser[d].ticketsUndone);
-            user.textContent = tabUser[d].username;
-            nbtickets.textContent = tabUser[d].nbTickets;
-            tickets_undone.textContent = tabUser[d].ticketsUndone;
-            
         }
+        console.log(tabTicketUndone);
         createTabTicket();
     })
     .catch(err => alert(err));
@@ -149,6 +142,16 @@ function help() {
     }
 }
 
+selectUser.addEventListener('change', statsUser());
+function statsUser(){
+    console.log("value",selectUser.value);
+    if (selectUser.value > 0){
+        let x = selectUser.value-1;
+        displayUser.textContent = tabUser[x].username;
+        nbtickets.textContent = tabUser[x].nbTickets;
+        tickets_undone.textContent = tabUser[x].ticketsUndone;
+    }
+}
 /* post 
 let response = fetch('https://webhelprequest.deta.dev/users', {
     method: 'POST',
