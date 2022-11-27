@@ -6,6 +6,7 @@ const displayUser = document.getElementById('displayUser');
 const nbtickets = document.getElementById('nbtickets');
 const tickets_undone = document.getElementById('tickets_undone');
 const buttonstat = document.getElementById('stat');
+const statTotaux = document.getElementById('ticketTotaux');
 
 buttonHelp.addEventListener('click', help);
 buttonstat.addEventListener('click', statsUser);
@@ -47,7 +48,6 @@ function createSelectValue() {
     }
 
 }
-
 // table des tickets non réalisés
 function createTabTicket() {
     for (let j = 0; j < tabTicketUndone.length; j++) {
@@ -73,7 +73,16 @@ function createTabTicket() {
         bodyTickets.appendChild(tr);
     }
 }
-
+function statsUser(){
+    console.log("value",selectUser.value);
+    if (selectUser.value > 0){
+        let x = selectUser.value-1;
+        displayUser.textContent = tabUser[x].username;
+        nbtickets.textContent = tabUser[x].nbTickets;
+        statTotaux.textContent = `${Math.round((tabUser[x].nbTickets)/(tabTicket.length)*100)}%`
+        tickets_undone.textContent = `${(Math.round((tabUser[x].ticketsUndone)/(tabUser[x].nbTickets)*100))}%`;
+    }
+}
 
 // bouton trash (ticket réalisé)
 function btnTrash(event) {
@@ -142,16 +151,9 @@ function help() {
     }
 }
 
+/* 
 selectUser.addEventListener('change', statsUser());
-function statsUser(){
-    console.log("value",selectUser.value);
-    if (selectUser.value > 0){
-        let x = selectUser.value-1;
-        displayUser.textContent = tabUser[x].username;
-        nbtickets.textContent = tabUser[x].nbTickets;
-        tickets_undone.textContent = tabUser[x].ticketsUndone;
-    }
-}
+
 /* post 
 let response = fetch('https://webhelprequest.deta.dev/users', {
     method: 'POST',
